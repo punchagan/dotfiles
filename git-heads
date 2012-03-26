@@ -1,8 +1,16 @@
+# Optional argument for number of days
+if [ -z $1 ]
+then
+days=1
+else
+days=$1
+fi
+
 branches=`git branch|tr \* " "|tr -d " "`
 
 for branch in $branches
 do
-output=`git log --since=yesterday $branch`
+output=`git log --since="$days days ago" $branch`
 if [ ! -z "$output" ]
 then
 echo $branch
