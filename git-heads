@@ -1,0 +1,12 @@
+branches=`git branch|tr \* " "|tr -d " "`
+
+for branch in $branches
+do
+output=`git log --since=yesterday $branch`
+if [ ! -z "$output" ]
+then
+echo $branch
+git log -n 1 --oneline $branch
+echo
+fi
+done
