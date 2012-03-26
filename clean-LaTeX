@@ -1,0 +1,46 @@
+#!/bin/sh
+# extensions taken from gitignore on github
+extensions="
+*.acn
+*.acr
+*.alg
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.fdb_latexmk
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lot
+*.maf
+*.mtc
+*.mtc0
+*.nav
+*.nlo
+*.out
+*.pdfsync
+*.ps
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.xdy
+"
+
+if [ ! -n $1 ]
+then
+curdir=`pwd`
+else
+curdir=$1
+fi
+
+echo "Removing" $extensions for $curdir
+cd $curdir
+rm -f $extensions
