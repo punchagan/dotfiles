@@ -7,7 +7,7 @@ remote_dir="~/repos"
 repo=$(echo $1 | sed -e s/\\/$// | sed -e s#^.*\\/##)
 repo_bare=$repo.git
 repo_tar=$repo.git.tar.gz
-origin=ssh://$remote:$remote_dir/$repo_bare
+origin=ssh://$remote/$remote_dir/$repo_bare
 
 # Bare clone
 echo "cloning repo to" $repo_bare
