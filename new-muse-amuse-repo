@@ -1,0 +1,32 @@
+#!/bin/bash
+# Usage: command repo-dir
+
+# variables
+remote="dumma@muse-amuse.in"
+remote_dir="~/repos"
+repo=$(echo $1 | sed -e s/\\/$// | sed -e s#^.*\\/##)
+repo_bare=$repo.git
+repo_tar=$repo.git.tar.gz
+origin=ssh://$remote:$remote_dir/$repo_bare
+
+# Bare clone
+echo "cloning repo to" $repo_bare
+git clone --bare $1 $repo_bare
+
+# Tar it up and push the tar to remote
+echo "tarring up repo"
+tar cvzf $repo_tar $repo_bare
+echo "copying to remote machine"
+scp $repo_tar $remote:$remote_dir
+
+# Untar and remove the tar locally and from remote
+echo "setting it up on remote machine"
+ssh $remote "cd $remote_dir && tar xvzf $repo_tar && rm $repo_tar"
+
+# Local clean up
+rm $repo_tar
+rm -rf $repo_bare
+
+# Adding remote to our local repo
+cd $1
+git remote add muse-amuse $origin
