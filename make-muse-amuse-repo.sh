@@ -1,6 +1,8 @@
 #!/bin/bash
-
 # Pushes a bare clone or a repo to muse-amuse.in as a "central" repository.
+
+# Stop running on any errors!
+set -e
 
 if [ $# -lt 1 ]; then
     echo "Usage:" $0 "/path/to/repo"
@@ -13,7 +15,7 @@ REPO_NAME=`basename $REPO_DIR`
 BARE_REPO=$REPO_NAME.git
 REPO_TAR=$REPO_NAME.tar.gz
 REMOTE=dumma@muse-amuse.in
-REMOTE_DIR=~/repos
+REMOTE_DIR="~/repos"
 
 # Create a bare clone and tar it up
 git clone --bare $REPO_DIR $BARE_REPO
