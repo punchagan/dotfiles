@@ -13,6 +13,6 @@ for p in $PATTERN; do
 done
 
 mkdir -p $TRASH
-echo "Moving stuff to" $TRASH
+echo "Moving $ARGS to $TRASH"
 
-mv $ARGS $TRASH
+mv "$ARGS" "$TRASH"
