@@ -3,11 +3,12 @@ set -e
 
 TRASH='/tmp/trash'
 # Note: the -rf, -fr should appear before -r and -f.
-PATTERN="-fr -rf -r -f"
+PATTERN="--recursive --force -fr -rf -r -f"
 
 ARGS="$@"
 
 for p in $PATTERN; do
+    # Replace the pattern with a NULL string; gobble up the pattern!
     ARGS=${ARGS/$p /}
 done
 
