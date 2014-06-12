@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Switch to the site directory
+cd ~/software/my-repos/muse-amuse.in
+
+# Source the virtualenv
+source ~/.virtualenvs/nikola/bin/activate
+
+DATE=`date +"%Y-%m-%d"`
+POST_FILE="posts/hacker-school-"$DATE".org"
+
+if [ -f $POST_FILE ]
+then
+    $EDITOR $POST_FILE
+else
+    nikola new_post -e --tags hackerschool -t "Hacker School, $DATE"
+fi
