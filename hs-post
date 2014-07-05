@@ -6,12 +6,12 @@ cd ~/software/my-repos/muse-amuse.in
 # Source the virtualenv
 source ~/.virtualenvs/nikola/bin/activate
 
-DATE=`date +"%Y-%m-%d"`
+DATE=`date +"%Y-%m-%d" --date="${1}"`
 POST_FILE="posts/hacker-school-"$DATE".org"
 
 if [ -f $POST_FILE ]
 then
     $EDITOR $POST_FILE
 else
-    nikola new_post -e --tags hackerschool -t "Hacker School, $DATE"
+    nikola new_post -e --tags "hackerschool, draft" -t "Hacker School, $DATE"
 fi
