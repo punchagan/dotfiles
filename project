@@ -1,0 +1,23 @@
+#!/bin/bash
+
+REPO_DIR=$HOME/software/my-repos/
+
+
+_project ()
+{
+    local cur
+
+    COMPREPLY=()
+    cur=`_get_cword`
+
+    projects=`ls $REPO_DIR`;
+    COMPREPLY=( $(compgen -W "${projects}" -- "${cur}") );
+
+    return 0;
+}
+
+project () {
+    cd $REPO_DIR/$1;
+}
+
+complete -F _project project
