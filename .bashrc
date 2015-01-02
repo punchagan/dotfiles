@@ -107,25 +107,25 @@ export PS1="| \[\e[1;30;31m\][\$(date +'%F %T')] \[\e[1;30;32m\]\h:\[\e[1;30;34m
 ######################################################################
 
 declare -a sources=(
-    "~/.bash_aliases"  # aliases
-    "~/.bash_functions"  # functions
-    "~/software/random/autoenv/activate.sh"   # autoenv
+    "$HOME/.bash_aliases"  # aliases
+    "$HOME/.bash_functions"  # functions
+    "$HOME/software/random/autoenv/activate.sh"   # autoenv
     "/etc/bash_completion.d/docker"   # docker
-    "~/bin/project"   # project path completion
-    "~/.travis/travis.sh"   # travis gem
-    "~/.nikola_bash"  # nikola bash completions
+    "$HOME/bin/project"   # project path completion
+    "$HOME/.travis/travis.sh"   # travis gem
+    "$HOME/.nikola_bash"  # nikola bash completions
 )
 for path in "${sources[@]}"
 do
-    if [ -f $path ]; then
-        . $path
+    if [ -f ${path} ]; then
+        . ${path}
     fi
 done
 
 # All PATH additions
 export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 # Ruby stuff
-export PATH=$HOME/1.9.1/bin:$PATH
+export PATH=$HOME/.gem/ruby/1.9.1/bin:$PATH
 # Node stuff
 export PATH=$PATH:~/node_modules/.bin
 # Elm stuff
