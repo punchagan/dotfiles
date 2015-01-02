@@ -1,3 +1,4 @@
+#!/bin/bash
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -23,4 +24,3 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias e='emacsclient -n -a vim'
 alias em='emacsclient -nw -a vim'
 alias git-branch-gc='for branch in `git branch --merged|grep -v "\*"`;  do b=`echo $branch|cut -d " " -f 2`; echo $b; done'
-alias git=hub
