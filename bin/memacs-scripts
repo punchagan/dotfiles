@@ -1,0 +1,14 @@
+#!/bin/bash
+set -e
+source $HOME/.virtualenvs/hs/bin/activate
+
+if [ `acpi -a|grep -o "off-line"` ]
+then
+    echo "Not connected to power."
+    exit
+fi
+
+# Browser history.
+memacs-chromium -o $HOME/.life-in-plain-text/memacs/chromium.org_archive \
+                -c $HOME/.memacs/preferences.ini \
+                -a
