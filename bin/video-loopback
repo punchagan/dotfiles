@@ -1,0 +1,15 @@
+#!/bin/bash
+
+MODULE=v4l2loopback
+
+if grep -q $MODULE /proc/modules;
+then
+    echo $MODULE already loaded
+else
+    echo loading $MODULE
+    sudo modprobe $MODULE
+    echo $MODULE loaded
+fi
+
+# v4l2src/v4l2sink are a part of gst-plugins-good.
+gst-launch v4l2src device=/dev/video0 ! v4l2sink device=/dev/video1
