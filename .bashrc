@@ -106,23 +106,21 @@ export PS1="| \[\e[1;30;31m\][\$(date +'%F %T')] \[\e[1;30;32m\]\h:\[\e[1;30;34m
 
 ######################################################################
 
-# All the aliases
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-# A bunch of functions
-source ~/.bash_fucntions
-# Autoenv stuff.
-source ~/software/random/autoenv/activate.sh
-# Docker stuff
-source /etc/bash_completion.d/docker
-# Project stuff
-source ~/bin/project
-# added by travis gem
-[ -f /home/punchagan/.travis/travis.sh ] &&
-    source /home/punchagan/.travis/travis.sh
-# Nikola completions
-source $HOME/.nikola_bash
+declare -a sources=(
+    "~/.bash_aliases"  # aliases
+    "~/.bash_functions"  # functions
+    "~/software/random/autoenv/activate.sh"   # autoenv
+    "/etc/bash_completion.d/docker"   # docker
+    "~/bin/project"   # project path completion
+    "~/.travis/travis.sh"   # travis gem
+    "~/.nikola_bash"  # nikola bash completions
+)
+for path in "${sources[@]}"
+do
+    if [ -f $path ]; then
+        . $path
+    fi
+done
 
 # All PATH additions
 export PATH=$HOME/.local/bin:$HOME/bin:$PATH
