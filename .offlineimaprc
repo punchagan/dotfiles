@@ -1,0 +1,23 @@
+# Sample minimal config file.  Copy this to ~/.offlineimaprc and edit to
+# get started fast.
+
+[general]
+accounts = muse-amuse
+pythonfile = ~/.offlineimap.py
+
+[Account muse-amuse]
+localrepository = local-muse-amuse
+remoterepository = remote-muse-amuse
+
+[Repository local-muse-amuse]
+type = Maildir
+localfolders = ~/.maildirs/muse-amuse
+
+[Repository remote-muse-amuse]
+type = IMAP
+remotehost = muse-amuse.in
+remoteusereval = get_username("remote-muse-amuse")
+remotepasseval = get_password("remote-muse-amuse")
+ssl = yes
+cert_fingerprint = 6f7e522761c9b71fe1fbabba970aaba60307a69d
+maxconnections = 1
