@@ -1,0 +1,63 @@
+#!/bin/bash
+set -e
+
+KINDLE=192.168.1.37
+MOUNT_DIR=/tmp/kindle-ssh-mount
+MSG_DIR=/tmp/kindle-msg-dir
+ARCHIVE_DIR=$HOME/archives/kindle-logs
+CRON_LOG="${ARCHIVE_DIR}"/cron.log
+KINDLE_UTILS=$HOME/software/random/kindle-utils
+DOCUMENTS="${MOUNT_DIR}"/mnt/us/documents
+CLIPPINGS="${MOUNT_DIR}"/mnt/us/documents/"My Clippings.txt"
+
+# Check if we already ran today
+touch "${CRON_LOG}"
+DATE=$(date +%Y-%m-%d)
+already_logged=`cat ${CRON_LOG}|grep "Archived ${DATE}"` || true
+if [[ ! -z $already_logged ]]
+then
+    echo "Already archived today."
+    exit 1;
+fi
+
+# Mount Kindle
+echo "Mounting ..."
+mounted=`mount|grep "${MOUNT_DIR}"` || true
+if [ -z "${mounted}" ]
+then
+    if [ ! -d $MOUNT_DIR ]
+    then
+        mkdir $MOUNT_DIR
+    fi
+    sshfs root@"$KINDLE":/ "$MOUNT_DIR"
+    echo "Successfully mounted Kindle"
+else
+    echo "Kindle already mounted"
+fi
+
+
+
+# Archive messages
+cp "${MOUNT_DIR}"/var/local/log/messages_*.gz "${ARCHIVE_DIR}"/
+echo "Archived log messages."
+
+# Fetch and gunzip messages
+rm -rf "${MSG_DIR}"
+mkdir "${MSG_DIR}"
+cp "${MOUNT_DIR}"/var/local/log/messages_*.gz "${MSG_DIR}"/
+gunzip "${MSG_DIR}"/*.gz
+echo "Fetched and Gunzipped log messages."
+
+# Get stats
+python "${KINDLE_UTILS}"/book_stats.py -b "${DOCUMENTS}" "${MSG_DIR}"/
+
+# Get clippings
+echo "Getting clippings"
+code="(clip2org nil \"${CLIPPINGS}\")"
+echo ${code} | $HOME/bin/emacsclient -e
+
+# Add marker for today's run
+echo Archived "${DATE}" >> "${CRON_LOG}"
+ls "${MSG_DIR}"/ >> "${CRON_LOG}"
+# Unmount
+fusermount -u "${MOUNT_DIR}"
