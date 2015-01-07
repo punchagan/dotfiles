@@ -9,6 +9,12 @@ then
 fi
 
 # Browser history.
+touch $HOME/.life-in-plain-text/memacs/chromium.org
 memacs-chromium -o $HOME/.life-in-plain-text/memacs/chromium.org_archive \
                 -c $HOME/.memacs/preferences.ini \
                 -a
+
+
+# Git history
+touch $HOME/.life-in-plain-text/memacs/git.org
+scan-git-repos $HOME/.life-in-plain-text/memacs/git.org_archive punchagan
