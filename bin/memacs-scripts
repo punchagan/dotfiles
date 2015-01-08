@@ -10,18 +10,6 @@ then
     exit
 fi
 
-# Browser history.
-touch "${MEMACS_DIR}"/chromium.org
-memacs-chromium -o "${MEMACS_DIR}"/chromium.org_archive \
-                -c $HOME/.memacs/preferences.ini \
-                -a
-
-
-# Git history
-touch "${MEMACS_DIR}"/git.org
-# scan-git-repos "${MEMACS_DIR}"/git.org_archive punchagan
-
-
 # Kindle history
 KINDLE_MOUNT_DIR=/tmp/kindle-ssh-mount
 KINDLE_MSG_DIR=/tmp/kindle-msg-dir
@@ -34,3 +22,13 @@ memacs-kindle "${KINDLE_MSG_DIR}" \
               -b "${KINDLE_MOUNT_DIR}"/mnt/us/documents/ \
               --add-to-time-stamps "+5.5" \
               -a
+
+# Browser history.
+touch "${MEMACS_DIR}"/chromium.org
+memacs-chromium -o "${MEMACS_DIR}"/chromium.org_archive \
+                -c $HOME/.memacs/preferences.ini \
+                -a
+
+# Git history
+touch "${MEMACS_DIR}"/git.org
+scan-git-repos "${MEMACS_DIR}"/git.org_archive punchagan
