@@ -1,12 +1,21 @@
 #!/bin/bash
 set -e
 
+MOUNT_DIR=$1
+if [ -z "${MOUNT_DIR}" ]
+then
+    MOUNT_DIR=/tmp/kindle-ssh-mount
+fi
+
+MSG_DIR=$2
+if [ -z "${MSG_DIR}" ]
+then
+    MSG_DIR=/tmp/kindle-msg-dir
+fi
+
 KINDLE=192.168.1.37
-MOUNT_DIR=/tmp/kindle-ssh-mount
-MSG_DIR=/tmp/kindle-msg-dir
 ARCHIVE_DIR=$HOME/archives/kindle-logs
 CRON_LOG="${ARCHIVE_DIR}"/cron.log
-KINDLE_UTILS=$HOME/software/random/kindle-utils
 DOCUMENTS="${MOUNT_DIR}"/mnt/us/documents
 CLIPPINGS="${MOUNT_DIR}"/mnt/us/documents/"My Clippings.txt"
 
@@ -35,8 +44,6 @@ else
     echo "Kindle already mounted"
 fi
 
-
-
 # Archive messages
 cp "${MOUNT_DIR}"/var/local/log/messages_*.gz "${ARCHIVE_DIR}"/
 echo "Archived log messages."
@@ -47,9 +54,6 @@ mkdir "${MSG_DIR}"
 cp "${MOUNT_DIR}"/var/local/log/messages_*.gz "${MSG_DIR}"/
 gunzip "${MSG_DIR}"/*.gz
 echo "Fetched and Gunzipped log messages."
-
-# Get stats
-python "${KINDLE_UTILS}"/book_stats.py -b "${DOCUMENTS}" "${MSG_DIR}"/
 
 # Get clippings
 echo "Getting clippings"
