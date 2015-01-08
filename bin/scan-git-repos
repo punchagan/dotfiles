@@ -45,6 +45,7 @@ function scan_and_dump_output () {
         for R in `get_repos $D`
         do
             REPO=`basename $R`
+            echo Getting history for ${REPO}
             get_history $R $TEMP $AUTHOR
             if [ -s $TEMP ]
             then
