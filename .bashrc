@@ -125,20 +125,24 @@ done
 # All PATH additions
 export PATH=$HOME/.local/bin:$HOME/bin:$PATH
 # Ruby stuff
-export PATH=$HOME/.gem/ruby/1.9.1/bin:$PATH
+export PATH=$HOME/.gem/ruby/2.1.0/bin:$PATH
 # Node stuff
 export PATH=$PATH:~/node_modules/.bin
-# Elm stuff
-export PATH=$HOME/software/random/Elm/Elm-Platform/master/bin:$PATH
 # Cabal
 export PATH=$HOME/.cabal/bin:$PATH
 ### Added by the Heroku Toolbelt
 export PATH="/usr/local/heroku/bin:$PATH"
+## Elm
+export PATH="$HOME/node_modules/elm/bin":$PATH
 
 #export CLICOLOR=1
 export EDITOR='emacsclient -nw -a vim'
 export PYTHON_EGG_CACHE=$HOME/.python-eggs
 export MAKEFLAGS="-j7"
 export GOPATH=/home/punchagan/gocode
+
+export PATH=/home/punchagan/software/infilect/torch/install/bin:$PATH  # Added automatically by torch-dist
+export LD_LIBRARY_PATH=/home/punchagan/software/infilect/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
+export DYLD_LIBRARY_PATH=/home/punchagan/software/infilect/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
 
 #### EOF ######################################################################
