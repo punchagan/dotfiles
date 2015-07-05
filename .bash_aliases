@@ -24,3 +24,12 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 alias e='emacsclient -n -a vim'
 alias em='emacsclient -nw -a vim'
 alias git-branch-gc='for branch in `git branch --merged|grep -v "\*"`;  do b=`echo $branch|cut -d " " -f 2`; echo $b; done'
+
+# redshift aliases
+alias bangalore="redshift -l 12.9485603:77.6573754 &"
+
+# yo/fuck
+alias yo='eval $(thefuck $(fc -ln -1)); history -r'
+
+# infilect
+alias inf='cd $HOME/software/infilect'
