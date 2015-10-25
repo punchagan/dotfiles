@@ -25,14 +25,20 @@ if __name__ == "__main__":
     import sys
     import os
     import getpass
-    if len(sys.argv) != 3:
-        print "Usage: %s <repository> <username>" \
+
+    if len(sys.argv) < 3:
+        print "Usage: %s [--get] <repository> <username>" \
             % (os.path.basename(sys.argv[0]))
         sys.exit(0)
-    repo, username = sys.argv[1:]
-    password = getpass.getpass("Enter password for user '%s': " % username)
-    password_confirmation = getpass.getpass("Confirm password: ")
-    if password != password_confirmation:
-        print "Error: password confirmation does not match"
-        sys.exit(1)
-    set_credentials(repo, username, password)
+    elif '--get' == sys.argv[1]:
+        repo, user = sys.argv[2:]
+        user, passwd = get_credentials(repo)
+        print(passwd)
+    else:
+        repo, username = sys.argv[1:]
+        password = getpass.getpass("Enter password for user '%s': " % username)
+        password_confirmation = getpass.getpass("Confirm password: ")
+        if password != password_confirmation:
+            print "Error: password confirmation does not match"
+            sys.exit(1)
+        set_credentials(repo, username, password)
