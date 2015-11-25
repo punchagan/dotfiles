@@ -96,7 +96,9 @@ local junk = account.INBOX:contain_from('noreply@coursera.org') +
   account.INBOX:contain_from('information@gandi.net') +
   account.INBOX:contain_from('info@makersasylum.com') +
   account.INBOX:contain_from('trello.com') +
-  account.INBOX:contain_from('change.org')
+  account.INBOX:contain_from('change.org') +
+  account.INBOX:contain_from('vimeo.com') +
+  account.INBOX:contain_from('quantifiedcode')
 
 junk:move_messages(account["Junk"])
 
@@ -105,7 +107,12 @@ local spam = account.INBOX:contain_body('If you no longer wish to receive mail f
   account.INBOX:contain_from('events@qz.com') +
   ((account.INBOX:contain_body('deals') + account.INBOX:contain_body('sale'))
       * account.INBOX:contain_body('unsubscribe')) +
-  account.INBOX:contain_from('@etailingindiaexpo')
+  account.INBOX:contain_from('@etailingindiaexpo') +
+  account.INBOX:contain_from('@localcirclesemail.com') +
+  account.INBOX:contain_from('@hcc.commnet.edu') +
+  account.INBOX:contain_body('to opt out') +
+  account.INBOX:contain_body('Million Dollars') +
+  account.INBOX:contain_body('PROMOTIONAL SMS')
 
 
 spam:move_messages(account["Trash"])
