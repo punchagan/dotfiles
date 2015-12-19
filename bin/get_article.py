@@ -1,5 +1,5 @@
-#!/home/punchagan/.virtualenvs/hs/bin/python
-from __future__ import print_function
+#!/home/punchagan/.virtualenvs/py3/bin/python
+
 import requests
 from readability.readability import Document
 
