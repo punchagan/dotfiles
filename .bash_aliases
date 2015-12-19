@@ -32,4 +32,4 @@ alias bangalore="redshift -l 12.9485603:77.6573754 &"
 alias yo='eval $(thefuck $(fc -ln -1)); history -r'
 
 # infilect
-alias inf='cd $HOME/software/infilect'
+alias inf='cd /opt/infilect/'
