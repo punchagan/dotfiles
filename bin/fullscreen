@@ -1,0 +1,17 @@
+#!/bin/bash
+# A script to toggle full screen on all windows.
+
+FLAG=$1
+if [ -z $FLAG ]; then
+    FLAG="on"
+fi
+
+if [ $FLAG = "on" ]; then
+    ACTION="add"
+else
+    ACTION="remove"
+fi
+
+for id in $(wmctrl -l |cut -d " " -f 1); do
+    wmctrl -b $ACTION,fullscreen -ir $id
+done
