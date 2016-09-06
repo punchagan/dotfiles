@@ -33,3 +33,9 @@ alias yo='eval $(thefuck $(fc -ln -1)); history -r'
 
 # infilect
 alias inf='cd /opt/infilect/'
+
+# akvo
+alias akvo='cd $HOME/software/akvo/'
+
+# workspace-alt-tab
+alias set-workspace='gsettings set org.gnome.shell.app-switcher current-workspace-only true'
