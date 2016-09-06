@@ -59,6 +59,10 @@ keras:move_messages(account["GitHub"])
 gh = account.INBOX:contain_from('notifications@github.com')
 gh:move_messages(account["GitHub"])
 
+-- Jobs
+local jobs = account.INBOX:contain_to('punchagan+jobs@muse-amuse.in')
+jobs:move_messages(account["Jobs"])
+
 -- Lafoots
 local lafoots = account.INBOX:contain_to('lafoots-252@googlegroups.com') +
   account.INBOX:contain_from('park@muse-amuse.in')
@@ -92,7 +96,7 @@ local junk = account.INBOX:contain_from('noreply@coursera.org') +
   account.INBOX:contain_from('iglaw.com') +
   account.INBOX:contain_from('@ello.co') +
   account.INBOX:contain_from('noreply@github.com') +
-  account.INBOX:contain_from('news@edx.org') +
+  account.INBOX:contain_from('edx.org') +
   account.INBOX:contain_from('information@gandi.net') +
   account.INBOX:contain_from('info@makersasylum.com') +
   account.INBOX:contain_from('trello.com') +
@@ -111,10 +115,12 @@ local spam = account.INBOX:contain_body('If you no longer wish to receive mail f
   account.INBOX:contain_from('events@qz.com') +
   ((account.INBOX:contain_body('deals') + account.INBOX:contain_body('sale'))
       * account.INBOX:contain_body('unsubscribe')) +
-  account.INBOX:contain_from('@etailingindiaexpo') +
+  account.INBOX:contain_from('etailingindia') +
   account.INBOX:contain_from('@localcirclesemail.com') +
   account.INBOX:contain_from('@hcc.commnet.edu') +
   account.INBOX:contain_from('@jobreferrals.in') +
+  account.INBOX:contain_from('@youth4work.in') +
+  account.INBOX:contain_from('directconnect.in') +
   account.INBOX:contain_body('to opt out') +
   account.INBOX:contain_body('Million Dollars') +
   account.INBOX:contain_body('PROMOTIONAL SMS')
