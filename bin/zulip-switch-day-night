@@ -5,6 +5,7 @@
 import argparse
 import glob
 import os
+import threading
 
 import zulip
 
@@ -30,8 +31,9 @@ def main():
     else:
         paths =[config_path]
 
-    for config_file in paths:
-        set_display(config_file, options.mode)
+    for config_file in sorted(paths):
+        thread = threading.Thread(target=set_display, args=(config_file, options.mode), daemon=False)
+        thread.start()
 
 
 if __name__ == '__main__':
