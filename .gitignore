@@ -1,2 +1,5 @@
 # Ignore everything
-*
+/*
+
+# Except, files in these directories
+!bin/
