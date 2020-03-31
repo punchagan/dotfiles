@@ -1,9 +1,0 @@
-[Desktop Entry]
-Encoding=UTF-8
-Name=EmacsClient
-Exec=/home/punchagan/bin/emacsclient %u
-Icon=/home/punchagan/software/random/emacs/etc/images/icons/hicolor/128x128/apps/emacs.png
-Terminal=false
-Type=Application
-StartupNotify=true
-MimeType=x-scheme-handler/org-protocol;
