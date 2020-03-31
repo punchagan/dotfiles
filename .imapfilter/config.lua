@@ -10,7 +10,7 @@ local function capture(cmd, raw)
 end
 
 local function get_password(repository, username)
-  local cmd ='/usr/bin/python /home/punchagan/.offlineimap.py --get ' .. repository .. ' ' .. username
+  local cmd ='/home/punchagan/bin/imap-pass --get ' .. repository .. ' ' .. username
   local password = capture(cmd)
   return password
 end
@@ -85,6 +85,8 @@ bb:move_messages(account["Bitbucket"])
 -- PyCon IN
 local py_in = account.INBOX:contain_from('@pssi.org.in')
 py_in:move_messages(account["PyConIN"])
+local py_del = account.INBOX:contain_from('@pydelhi.org')
+py_del:move_messages(account["PyConIN"])
 
 -- Junk
 local junk = account.INBOX:contain_from('noreply@coursera.org') +
@@ -127,3 +129,13 @@ local spam = account.INBOX:contain_body('If you no longer wish to receive mail f
 
 
 spam:move_messages(account["Trash"])
+
+-- UPAI
+local upai = account.INBOX:contain_to('admin@indiaultimate.org')
+upai:move_messages(account["UPAI"])
+
+local upai = account.INBOX:contain_cc('admin@indiaultimate.org')
+upai:move_messages(account["UPAI"])
+
+local upai = account.INBOX:contain_bcc('admin@indiaultimate.org')
+upai:move_messages(account["UPAI"])
