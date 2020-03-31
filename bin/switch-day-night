@@ -3,8 +3,14 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+# Settings
+EMACS_DAY_THEME=spacemacs-light
+EMACS_NIGHT_THEME=spacemacs-dark
+GTK_DAY_THEME="'Yaru-light'"
+GTK_NIGHT_THEME="'Yaru-dark'"
+
 GTK_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme)
-if [[ "${GTK_THEME}" == *"dark"* ]]; then
+if [ "${GTK_THEME}" == ${GTK_NIGHT_THEME} ]; then
     # Currently in dark mode
     GUESSED_MODE="day"
 else
@@ -16,16 +22,16 @@ echo "Switching to ${MODE} mode..."
 
 function day {
     # Emacs
-    emacsclient -n -e "(load-theme 'spacemacs-light t)"
+    emacsclient -n -e "(load-theme '${EMACS_DAY_THEME} t)"
     # Gnome shell
-    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-light'
+    gsettings set org.gnome.desktop.interface gtk-theme ${GTK_DAY_THEME}
 }
 
 function night {
     # Emacs
-    emacsclient -n -e "(load-theme 'spacemacs-dark t)"
+    emacsclient -n -e "(load-theme '${EMACS_NIGHT_THEME} t)"
     # Gnome shell
-    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-dark'
+    gsettings set org.gnome.desktop.interface gtk-theme ${GTK_NIGHT_THEME}
 }
 
 "${MODE}"
