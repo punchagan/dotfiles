@@ -35,4 +35,5 @@ function night {
 }
 
 "${MODE}"
+slack-switch-day-night "${MODE}"
 zulip-switch-day-night ~/.zulip.d/ "${MODE}"
