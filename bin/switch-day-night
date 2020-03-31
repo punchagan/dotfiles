@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+# Script to switch between night and day modes in different programs
+set -euo pipefail
+IFS=$'\n\t'
+
+
+function day {
+    echo "Switching to day mode..."
+    # Emacs
+    emacsclient -n -e "(load-theme 'spacemacs-light t)"
+    # Gnome shell
+    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-light'
+}
+
+function night {
+    echo "Switching to night mode..."
+    # Emacs
+    emacsclient -n -e "(load-theme 'spacemacs-dark t)"
+    # Gnome shell
+    gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-dark'
+}
+
+GTK_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme)
+
+if [[ "${GTK_THEME}" == *"dark"* ]]; then
+    day;
+else
+    night;
+fi
