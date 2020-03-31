@@ -1,5 +1,7 @@
 # Ignore everything
 /*
+# Ignore external bin files
+/bin/external/
 
 # Except, files in these directories
 !bin/
