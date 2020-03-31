@@ -7,8 +7,8 @@ IFS=$'\n\t'
 # Settings
 day_EMACS_THEME=spacemacs-light
 night_EMACS_THEME=spacemacs-dark
-day_GTK_THEME="'Yaru-light'"
-night_GTK_THEME="'Yaru-dark'"
+day_GTK_THEME="'Adwaita'"
+night_GTK_THEME="'Adwaita-dark'"
 
 # Guess current mode and toggle mode
 _THEME=$(gsettings get org.gnome.desktop.interface gtk-theme)
