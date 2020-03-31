@@ -116,7 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=$HOME/bin:$PATH
+export PATH=$HOME/bin:$HOME/bin/external:$PATH
 export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
 export PATH=$HOME/software/random/adr-tools/src/:$PATH
 export PATH=$HOME/.local/bin:$PATH
