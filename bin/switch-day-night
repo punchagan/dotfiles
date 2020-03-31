@@ -33,9 +33,20 @@ GTK_THEME=$(echo "${MODE}_GTK_THEME")
 
 # Emacs
 emacsclient -n -e "(load-theme '${!EMACS_THEME} t)"
+
 # Gnome shell
 gsettings set org.gnome.desktop.interface gtk-theme ${!GTK_THEME}
+
 # Slack
 slack-switch-day-night "${MODE}"
+
 # Zulip
 zulip-switch-day-night ~/.zulip.d/ "${MODE}"
+
+# Terminal
+# NOTE: The terminal is configured to match the OS theme colors, and this is
+# sufficient for my purposes.
+
+# Firefox/Browser
+# NOTE: I use the Dark Reader extension (darkreader.org) and configure it to
+# switch based on the OS theme, again.  This works pretty well!
