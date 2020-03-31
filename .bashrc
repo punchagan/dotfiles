@@ -3,11 +3,14 @@
 # for examples
 
 # If not running interactively, don't do anything
-[ -z "$PS1" ] && return
+case $- in
+    *i*) ;;
+      *) return;;
+esac
 
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
+# don't put duplicate lines or lines starting with space in the history.
+# See bash(1) for more options
+HISTCONTROL=ignoreboth
 
 # append to the history file, don't overwrite it
 shopt -s histappend
@@ -20,17 +23,21 @@ HISTFILESIZE=2000
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+# If set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
 # make less more friendly for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 # set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
+if [ -z "${debian_chroot:-}" ] && [ -r /etc/debian_chroot ]; then
     debian_chroot=$(cat /etc/debian_chroot)
 fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -40,12 +47,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+  # We have color support; assume it's compliant with Ecma-48
+  # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+  # a case would tend to support setf rather than setaf.)
+  color_prompt=yes
     else
-	color_prompt=
+  color_prompt=
     fi
 fi
 
@@ -65,84 +72,72 @@ xterm*|rxvt*)
     ;;
 esac
 
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
+
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
-if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
+  fi
 fi
 
-# Update history each time a new prompt is shown.
-# export PROMPT_COMMAND="history -n; history -a"
+export PATH=$HOME/bin:$PATH
+export PATH=/usr/local/cuda-9.0/bin${PATH:+:${PATH}}
+export PATH=$HOME/software/random/adr-tools/src/:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
 
-######################################################################
-# From https://gist.github.com/785566
-# Set the prompt
+# Direnv
+eval "$(direnv hook bash)"
 
-export GIT_PS1_SHOWDIRTYSTATE=1
-export GIT_PS1_SHOWSTASHSTATE=1
+# Android Home
+export ANDROID_HOME=$HOME/Android/Sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+source $HOME/.bash_it_rc
 
-win-divider() {
-    s="_"
-    o=""
-    let nl=$COLUMNS
+export PATH="$HOME/.cargo/bin:$PATH"
+export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
 
-    for i in `seq 1 $nl`; do o="${o}${s}"; done
-    echo $o
-}
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/punchagan/software/akvo/tmp/google-cloud-sdk/path.bash.inc' ]; then . '/home/punchagan/software/akvo/tmp/google-cloud-sdk/path.bash.inc'; fi
 
-TBytes() {
-    TBytes=0
-    for Bytes in $(ls -l | grep "^-" | awk '{ print $5 }')
-    do
-        let TBytes=$TBytes+$Bytes
-    done
-    TotalMeg=$(echo -e "scale=3 \n$TBytes/1048576 \nquit" | bc)
-    echo -n "$TotalMeg"
-}
-export HISTTIMEFORMAT='%F %T '
-export PS1="| \[\e[1;30;31m\][\$(date +'%F %T')] \[\e[1;30;32m\]\h:\[\e[1;30;34m\]\w \[\e[1;30;36m\](\$(TBytes) Mb)\[\e[1;30;37m\]\$(__git_ps1)\[\e[0m\]\n\$ "
-
-######################################################################
-
-declare -a sources=(
-    "$HOME/.bash_aliases"  # aliases
-    "$HOME/.bash_functions"  # functions
-    "$HOME/software/random/autoenv/activate.sh"   # autoenv
-    "/etc/bash_completion.d/docker"   # docker
-    "$HOME/bin/project"   # project path completion
-    "$HOME/.travis/travis.sh"   # travis gem
-    "$HOME/.nikola_bash"  # nikola bash completions
-)
-for path in "${sources[@]}"
-do
-    if [ -f ${path} ]; then
-        . ${path}
-    fi
-done
-
-# All PATH additions
-export PATH=$HOME/.local/bin:$HOME/bin:$PATH
-# Ruby stuff
-export PATH=$HOME/.gem/ruby/2.1.0/bin:$PATH
-# Node stuff
-export PATH=$PATH:~/node_modules/.bin
-# Cabal
-export PATH=$HOME/.cabal/bin:$PATH
-### Added by the Heroku Toolbelt
-export PATH="/usr/local/heroku/bin:$PATH"
-## Elm
-export PATH="$HOME/node_modules/elm/bin":$PATH
-
-#export CLICOLOR=1
-export EDITOR='emacsclient -nw -a vim'
-export PYTHON_EGG_CACHE=$HOME/.python-eggs
-export MAKEFLAGS="-j7"
-export GOPATH=/home/punchagan/gocode
-
-export PATH=/home/punchagan/software/infilect/torch/install/bin:$PATH  # Added automatically by torch-dist
-export LD_LIBRARY_PATH=/home/punchagan/software/infilect/torch/install/lib:$LD_LIBRARY_PATH  # Added automatically by torch-dist
-export DYLD_LIBRARY_PATH=/home/punchagan/software/infilect/torch/install/lib:$DYLD_LIBRARY_PATH  # Added automatically by torch-dist
-
-#### EOF ######################################################################
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/punchagan/software/akvo/tmp/google-cloud-sdk/completion.bash.inc' ]; then . '/home/punchagan/software/akvo/tmp/google-cloud-sdk/completion.bash.inc'; fi
