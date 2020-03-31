@@ -24,6 +24,8 @@ GTK_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme)
 
 if [[ "${GTK_THEME}" == *"dark"* ]]; then
     day;
+    zulip-switch-day-night ~/.zulip.d/ day;
 else
     night;
+    zulip-switch-day-night ~/.zulip.d/ night;
 fi
