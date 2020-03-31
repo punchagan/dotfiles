@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+set -e
+
+if [ -z $1 ]; then
+    echo "File path to save to is required"
+    exit 1
+fi
+
+echo "Saving screenshot to" "${1}"
+xclip -selection clipboard -d :0 -t image/png -o > "${1}"
