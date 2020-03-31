@@ -3,9 +3,18 @@
 set -euo pipefail
 IFS=$'\n\t'
 
+GTK_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme)
+if [[ "${GTK_THEME}" == *"dark"* ]]; then
+    # Currently in dark mode
+    GUESSED_MODE="day"
+else
+    GUESSED_MODE="night"
+fi
+
+MODE="${1:-${GUESSED_MODE}}"
+echo "Switching to ${MODE} mode..."
 
 function day {
-    echo "Switching to day mode..."
     # Emacs
     emacsclient -n -e "(load-theme 'spacemacs-light t)"
     # Gnome shell
@@ -13,19 +22,11 @@ function day {
 }
 
 function night {
-    echo "Switching to night mode..."
     # Emacs
     emacsclient -n -e "(load-theme 'spacemacs-dark t)"
     # Gnome shell
     gsettings set org.gnome.desktop.interface gtk-theme 'Yaru-dark'
 }
 
-GTK_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme)
-
-if [[ "${GTK_THEME}" == *"dark"* ]]; then
-    day;
-    zulip-switch-day-night ~/.zulip.d/ day;
-else
-    night;
-    zulip-switch-day-night ~/.zulip.d/ night;
-fi
+"${MODE}"
+zulip-switch-day-night ~/.zulip.d/ "${MODE}"
