@@ -12,12 +12,18 @@ GTK_NIGHT_THEME="'Yaru-dark'"
 GTK_THEME=$(gsettings get org.gnome.desktop.interface gtk-theme)
 if [ "${GTK_THEME}" == ${GTK_NIGHT_THEME} ]; then
     # Currently in dark mode
+    CURRENT_MODE="night"
     GUESSED_MODE="day"
 else
+    CURRENT_MODE="day"
     GUESSED_MODE="night"
 fi
 
 MODE="${1:-${GUESSED_MODE}}"
+if [ ${CURRENT_MODE} == ${MODE} ]; then
+    echo "Already in ${MODE} mode. Nothing to do!"
+    exit 1
+fi
 echo "Switching to ${MODE} mode..."
 
 function day {
