@@ -70,6 +70,12 @@ if __name__ == "__main__":
         help="Text description for the log entry",
     )
     parser.add_argument("--weekday", default=None, help="Weekday (starts Mon)")
+    parser.add_argument(
+        "--headless",
+        action="store_true",
+        default=False,
+        help="Headless browser",
+    )
 
     options = parser.parse_args()
     rc = netrc.netrc()
@@ -81,4 +87,4 @@ if __name__ == "__main__":
     else:
         text = options.text
 
-    browser = log_today(username, password, weekday, text)
+    browser = log_today(username, password, weekday, text, options.headless)
