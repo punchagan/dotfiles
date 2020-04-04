@@ -71,7 +71,9 @@ if __name__ == "__main__":
         default=sys.stdin,
         help="Text description for the log entry",
     )
-    parser.add_argument("--weekday", default=None, help="Weekday (starts Mon)")
+    parser.add_argument(
+        "--weekday", type=int, default=10, help="Weekday (starts Mon)"
+    )
     parser.add_argument(
         "--headless",
         action="store_true",
@@ -82,7 +84,9 @@ if __name__ == "__main__":
     options = parser.parse_args()
     rc = netrc.netrc()
     username, _, password = rc.authenticators("clockwise")
-    weekday = options.weekday or str(datetime.datetime.now().weekday())
+    weekday = options.weekday
+    if not 0 <= weekday <= 4:
+        weekday = datetime.datetime.now().weekday()
 
     if not isinstance(options.text, str):
         text = options.text.read()
