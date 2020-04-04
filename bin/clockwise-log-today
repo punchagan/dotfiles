@@ -38,9 +38,9 @@ def log_today(username, password, weekday, text, headless=False):
     browser.switch_to.frame(table_frame)
 
     # Enter hours
-    browser.find_element_by_xpath(f'//input[@name="u_0{weekday}7"]').send_keys(
-        "6"
-    )
+    hours = browser.find_element_by_xpath(f'//input[@name="u_0{weekday}7"]')
+    hours.clear()
+    hours.send_keys("6")
     browser.find_element_by_id(f"p_0{weekday}7").click()
 
     # Enter metadata
