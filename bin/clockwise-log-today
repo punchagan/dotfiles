@@ -15,7 +15,9 @@ FIREFOX_BINARY = "firefox-trunk"
 
 def log_today(username, password, weekday, text, headless=False):
     options = Options()
-    options.headless = headless
+    # FIXME: headless doesn't seem to work
+    print("Headless doesn't seem to work with FF. Displaying browser...")
+    options.headless = False
     browser = webdriver.Firefox(options=options, firefox_binary=FIREFOX_BINARY)
     browser.set_window_position(0, 0)
     browser.get("https://secure.clockwise.info/clockwise/akvo/index.php")
