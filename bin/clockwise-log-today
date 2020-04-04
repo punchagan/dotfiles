@@ -2,8 +2,6 @@
 import argparse
 import datetime
 import os
-import sys
-import time
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -61,7 +59,8 @@ def log_today(username, password, weekday, text, headless=False):
 
 
 if __name__ == "__main__":
-    USERNAME = os.environ["CW_USERNAME"]
-    PASSWORD = os.environ["CW_PASSWORD"]
+    import netrc
+    rc = netrc.netrc()
+    username, _, password = rc.authenticators('clockwise')
     weekday = datetime.datetime.now().weekday()
-    browser = log_today(USERNAME, PASSWORD, weekday, "test hello world")
+    browser = log_today(username, password, weekday, "test hello world")
