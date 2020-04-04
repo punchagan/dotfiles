@@ -2,6 +2,7 @@
 import argparse
 import datetime
 import netrc
+import sys
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -59,7 +60,23 @@ def log_today(username, password, weekday, text, headless=False):
 
 
 if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "text",
+        nargs="?",
+        default=sys.stdin,
+        help="Text description for the log entry",
+    )
+    parser.add_argument("--weekday", default=None, help="Weekday (starts Mon)")
+
+    options = parser.parse_args()
     rc = netrc.netrc()
     username, _, password = rc.authenticators("clockwise")
-    weekday = datetime.datetime.now().weekday()
-    browser = log_today(username, password, weekday, "test hello world")
+    weekday = options.weekday or str(datetime.datetime.now().weekday())
+
+    if not isinstance(options.text, str):
+        text = options.text.read()
+    else:
+        text = options.text
+
+    browser = log_today(username, password, weekday, text)
