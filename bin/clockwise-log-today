@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import argparse
 import datetime
-import os
 
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -9,13 +8,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.firefox.options import Options
 
+FIREFOX_BINARY = "firefox-trunk"
+
 
 def log_today(username, password, weekday, text, headless=False):
     options = Options()
     options.headless = headless
-    browser = webdriver.Firefox(
-        options=options, firefox_binary=os.environ.get("FIREFOX_BINARY", None)
-    )
+    browser = webdriver.Firefox(options=options, firefox_binary=FIREFOX_BINARY)
     browser.set_window_position(0, 0)
     browser.get("https://secure.clockwise.info/clockwise/akvo/index.php")
     wait = WebDriverWait(browser, 30)
