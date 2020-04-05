@@ -10,7 +10,7 @@ local function capture(cmd, raw)
 end
 
 local function get_password(repository, username)
-  local cmd ='/home/punchagan/bin/imap-pass --get ' .. repository .. ' ' .. username
+  local cmd ='/home/punchagan/bin/imap-pass get ' .. repository .. ' ' .. username
   local password = capture(cmd)
   return password
 end
