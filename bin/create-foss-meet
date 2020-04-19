@@ -2,7 +2,7 @@
 set -euo pipefail
 IFS=$'\n\t'
 
-fasd zoom-cli -1
+pushd $(fasd zoom-cli -1)
 source .envrc
 TIME=$(date --iso-8601=seconds --date='6:15 PM')
 python zoom-client.py create-meeting ${ZOOM_ID} --start-time ${TIME} --topic "FOSS Chat" | jq -r '"URL: " + .join_url'
