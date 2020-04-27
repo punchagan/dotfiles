@@ -136,6 +136,8 @@ source $HOME/.bash_it_rc
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
 
+export PATH="$HOME/software/random/doom-emacs/bin:$PATH"
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/home/punchagan/software/akvo/tmp/google-cloud-sdk/path.bash.inc' ]; then . '/home/punchagan/software/akvo/tmp/google-cloud-sdk/path.bash.inc'; fi
 
