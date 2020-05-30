@@ -33,6 +33,7 @@ GTK_THEME=$(echo "${MODE}_GTK_THEME")
 
 # Emacs
 emacsclient -n -e "(load-theme '${!EMACS_THEME} t)"
+emacsclient -n -e "(load-theme '${!EMACS_THEME} t)"
 
 # Gnome shell
 gsettings set org.gnome.desktop.interface gtk-theme ${!GTK_THEME}
