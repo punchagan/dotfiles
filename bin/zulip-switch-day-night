@@ -14,27 +14,29 @@ def set_display(config_file, mode):
     print(f"Switching to '{mode}' mode using {config_file}")
     client = zulip.Client(config_file=config_file)
     client.call_endpoint(
-        "settings/display", method="PATCH", request={"night_mode": mode == 'night'}
+        "settings/display", method="PATCH", request={"night_mode": mode == "night"}
     )
 
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('config_path')
-    parser.add_argument('mode', choices=['day', 'night'])
+    parser.add_argument("config_path")
+    parser.add_argument("mode", choices=["day", "night"])
 
     options = parser.parse_args()
     config_path = options.config_path
 
     if os.path.isdir(config_path):
-        paths = glob.glob(os.path.join(config_path, '*'))
+        paths = glob.glob(os.path.join(config_path, "*"))
     else:
-        paths =[config_path]
+        paths = [config_path]
 
     for config_file in sorted(paths):
-        thread = threading.Thread(target=set_display, args=(config_file, options.mode), daemon=False)
+        thread = threading.Thread(
+            target=set_display, args=(config_file, options.mode), daemon=False
+        )
         thread.start()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
