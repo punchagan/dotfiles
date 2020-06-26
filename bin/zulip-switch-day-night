@@ -9,12 +9,14 @@ import threading
 
 import zulip
 
+COLOR_SCHEME = {"day": "1", "night": "2"}
+
 
 def set_display(config_file, mode):
     print(f"Switching to '{mode}' mode using {config_file}")
     client = zulip.Client(config_file=config_file)
     client.call_endpoint(
-        "settings/display", method="PATCH", request={"night_mode": mode == "night"}
+        "settings/display", method="PATCH", request={"color_scheme": COLOR_SCHEME[mode]}
     )
 
 
