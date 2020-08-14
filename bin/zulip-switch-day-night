@@ -9,7 +9,7 @@ import threading
 
 import zulip
 
-COLOR_SCHEME = {"day": "1", "night": "2"}
+COLOR_SCHEME = {"night": "2", "day": "3"}
 
 
 def set_display(config_file, mode):
