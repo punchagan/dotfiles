@@ -12,3 +12,9 @@ yt-to-phone () {
     adb push -- * "/sdcard/Videos";
     popd || exit;
 }
+
+alias rsr-prod-backend='kubectx gke_akvo-lumen_europe-west1-d_production; kubectl exec $(kubectl get pods -l "run=rsr" -o jsonpath="{.items[0].metadata.name}" --field-selector=status.phase=Running) --container rsr-backend -it -- bash'
+alias rsr-test-backend='kubectx gke_akvo-lumen_europe-west1-d_test; kubectl exec $(kubectl get pods -l "run=rsr" -o jsonpath="{.items[0].metadata.name}" --field-selector=status.phase=Running) --container rsr-backend -it -- bash'
+alias sys-update='sudo apt update && sudo apt upgrade'
+alias music='cd ~/Music; mplayer -vo null -shuffle -loop 0 *'
+alias aliases='e ~/.bash_aliases'
