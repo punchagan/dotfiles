@@ -1,0 +1,5 @@
+#!/bin/bash
+
+script=$(mktemp --suffix=".sh")
+curl -fsSL "${1}" > "${script}"
+bash "${script}"
