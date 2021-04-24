@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/python3
 """Script to toggle Slack's day/night modes"""
 
 import argparse
