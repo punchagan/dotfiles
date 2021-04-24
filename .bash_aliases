@@ -35,3 +35,5 @@ function mongo-start () {
     docker run -d -p 27017:27017 -v $PWD/data/mongodb:/data/db mongo
 }
 
+# Remove some bash_it aliases
+unalias gh
