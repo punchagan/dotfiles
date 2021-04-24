@@ -5,8 +5,8 @@ set -euo pipefail
 IFS=$'\n\t'
 
 # Settings
-day_EMACS_THEME=doom-one-light
-night_EMACS_THEME=doom-one
+day_EMACS_THEME=base16-humanoid-light
+night_EMACS_THEME=base16-humanoid-dark
 day_GTK_THEME="'Adwaita'"
 night_GTK_THEME="'Adwaita-dark'"
 
@@ -32,14 +32,13 @@ EMACS_THEME="${MODE}_EMACS_THEME"
 GTK_THEME=$(echo "${MODE}_GTK_THEME")
 
 # Emacs
-emacsclient -n -e "(load-theme '${!EMACS_THEME} t)" || true
-emacsclient -n -e "(load-theme '${!EMACS_THEME} t)" || true
+emacsclient -n -e "(pc/load-theme '${!EMACS_THEME})" || true
 
 # Gnome shell
 gsettings set org.gnome.desktop.interface gtk-theme ${!GTK_THEME}
 
 # Slack
-slack-switch-day-night "${MODE}"
+# slack-switch-day-night "${MODE}"
 
 # Zulip
 zulip-switch-day-night ~/.zulip.d/ "${MODE}"
