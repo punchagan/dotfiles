@@ -3,8 +3,6 @@ RPI=192.168.1.104
 
 alias phone="adb connect \$PHONE_IP:5555; scrcpy"
 
-alias rsvp-docker='docker run -d -p 27017:27017 -v ~/software/thatte-idli/rsvpapp/data/mongodb:/data/db mongo'
-
 yt-video-to-phone () {
     DIR=$(mktemp -d)
     pushd "$DIR" || exit;
@@ -32,3 +30,8 @@ alias sys-update='sudo apt update; sudo apt upgrade'
 alias music='cd ~/Music; mplayer -vo null -shuffle -loop 0 *'
 alias aliases='e ~/.bash_aliases'
 alias rpi='ssh pi@$RPI'
+
+function mongo-start () {
+    docker run -d -p 27017:27017 -v $PWD/data/mongodb:/data/db mongo
+}
+
