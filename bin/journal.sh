@@ -1,2 +1,4 @@
 #!/bin/bash
-emacsclient -ne '(pc/journal)'
+MODE="$1"
+echo "${MODE}" > /tmp/journal-arg
+emacsclient -ne "(pc/journal ${MODE})"
