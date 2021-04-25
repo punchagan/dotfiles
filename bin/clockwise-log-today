@@ -13,7 +13,7 @@ from selenium.webdriver.firefox.options import Options
 FIREFOX_BINARY = "firefox-trunk"
 
 
-def log_today(username, password, weekday, text, headless=False):
+def login(username, password, headless=False):
     options = Options()
     # FIXME: headless doesn't seem to work
     print("Headless doesn't seem to work with FF. Displaying browser...")
@@ -26,10 +26,17 @@ def log_today(username, password, weekday, text, headless=False):
     # Login
     username_xpath = "//input[@name='naam']"
     password_xpath = "//input[@name='wwoord']"
-    submit_xpath = "//input[@name='inlogknop']"
+    submit_xpath = "//button[@name='inlogknop']"
     browser.find_element_by_xpath(username_xpath).send_keys(username)
     browser.find_element_by_xpath(password_xpath).send_keys(password)
+    wait.until(EC.presence_of_element_located((By.XPATH, submit_xpath)))
     browser.find_element_by_xpath(submit_xpath).click()
+
+    return browser
+
+
+def log_today(username, password, weekday, text, headless=False):
+    browser = login(username, password, headless=headless)
 
     # Switch to correct frame
     table_frame_xpath = '//frame[contains(@src, "matrix.php")]'
@@ -81,6 +88,10 @@ if __name__ == "__main__":
         help="Text description for the log entry",
     )
     parser.add_argument(
+        "--open", default=False, action='store_true',
+        help="Just open clockwise, don't make any entries"
+    )
+    parser.add_argument(
         "--weekday", type=int, default=10, help="Weekday (starts Mon)"
     )
     parser.add_argument(
@@ -93,6 +104,11 @@ if __name__ == "__main__":
     options = parser.parse_args()
     rc = netrc.netrc()
     username, _, password = rc.authenticators("clockwise")
+
+    if options.open:
+        login(username, password)
+        sys.exit()
+    
     weekday = options.weekday
     if not 0 <= weekday <= 4:
         weekday = datetime.datetime.now().weekday()
