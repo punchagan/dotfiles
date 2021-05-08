@@ -1,5 +1,4 @@
-PHONE_IP=192.168.1.100
-RPI=192.168.1.104
+PHONE_IP=192.168.0.195
 
 alias phone="adb connect \$PHONE_IP:5555; scrcpy"
 
@@ -29,7 +28,7 @@ alias rsr-test-backend='kubectx gke_akvo-lumen_europe-west1-d_test; kubectl exec
 alias sys-update='sudo apt update; sudo apt upgrade'
 alias music='cd ~/Music; mplayer -vo null -shuffle -loop 0 *'
 alias aliases='e ~/.bash_aliases'
-alias rpi='ssh pi@$RPI'
+alias rpi='ssh pi@rpi.local'
 
 function mongo-start () {
     docker run -d -p 27017:27017 -v $PWD/data/mongodb:/data/db mongo
