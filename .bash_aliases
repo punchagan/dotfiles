@@ -34,5 +34,9 @@ function mongo-start () {
     docker run -d -p 27017:27017 -v $PWD/data/mongodb:/data/db mongo
 }
 
+# Phone backup mount
+alias mount-phone-backup='sshfs pi@rpi.local:/mnt/backup-drive/PhoneBackup/ ~/PhoneBackup/'
+alias unmount-phone-backup='fusermount -u /home/punchagan/PhoneBackup'
+
 # Remove some bash_it aliases
 unalias gh
