@@ -29,6 +29,7 @@ alias sys-update='sudo apt update; sudo apt upgrade'
 alias music='cd ~/Music; mplayer -vo null -shuffle -loop 0 *'
 alias aliases='e ~/.bash_aliases'
 alias rpi='mosh pi@rpi.local'
+alias rpi-exec='ssh pi@rpi.local $@'
 
 function mongo-start () {
     docker run -d -p 27017:27017 -v $PWD/data/mongodb:/data/db mongo
