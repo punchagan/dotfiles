@@ -145,3 +145,13 @@ if [ -f '/home/punchagan/software/akvo/tmp/google-cloud-sdk/path.bash.inc' ]; th
 
 # The next line enables shell command completion for gcloud.
 if [ -f '/home/punchagan/software/akvo/tmp/google-cloud-sdk/completion.bash.inc' ]; then . '/home/punchagan/software/akvo/tmp/google-cloud-sdk/completion.bash.inc'; fi
+
+
+# NPM related stuff
+NPM_PACKAGES="${HOME}/.npm-packages"
+
+export PATH="$PATH:$NPM_PACKAGES/bin"
+
+# Preserve MANPATH if you already defined it somewhere in your config.
+# Otherwise, fall back to `manpath` so we can inherit from `/etc/manpath`.
+export MANPATH="${MANPATH-$(manpath)}:$NPM_PACKAGES/share/man"
