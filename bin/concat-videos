@@ -1,0 +1,48 @@
+#!/usr/bin/env python3
+"""Script to concatenate videos in a directory."""
+
+import glob
+import os
+import subprocess
+import tempfile
+
+
+FFMPEG_CMD = ["ffmpeg", "-y"]
+
+
+def concat_videos(output_file, inputs, use_container=False):
+    if use_container:
+        n = len(inputs)
+        f_i = "".join(f"[{i}:v:0][{i}:a:0]" for i in range(n))
+        f_o = f"concat=n={n}:v=1:a=1[outv][outa]"
+        f_args = [arg for f in inputs for arg in ("-i", f)]
+        args = f_args + ["-filter_complex", f"{f_i}{f_o}", "-map", "[outv]", "-map", "[outa]"]
+        if not output_file.endswith(".mkv"):
+            output_file = f"{output_file}.mkv"
+        concat_command = FFMPEG_CMD + args + [output_file]
+        subprocess.check_call(concat_command)
+    else:
+        with tempfile.NamedTemporaryFile("w", delete=False) as f:
+            for input_file in inputs:
+                p = os.path.abspath(input_file)
+                f.write(f"file '{p}'\n")
+        concat_command = (
+            FFMPEG_CMD + ["-f", "concat", "-safe", "0", "-i", f.name, "-c", "copy"] + [output_file]
+        )
+        subprocess.check_call(concat_command)
+    return output_file
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-u", "--use-container", action="store_true", default=False)
+    parser.add_argument("--extension", default="mp4")
+
+    args = parser.parse_args()
+    ext = args.extension
+    name = os.path.basename(os.path.realpath("."))
+    inputs = sorted(glob.glob(f"*.{ext}"))
+
+    concat_videos(f"{name}.{ext}", inputs, args.use_container)
