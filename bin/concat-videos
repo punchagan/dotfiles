@@ -43,6 +43,6 @@ if __name__ == "__main__":
     args = parser.parse_args()
     ext = args.extension
     name = os.path.basename(os.path.realpath("."))
-    inputs = sorted(glob.glob(f"*.{ext}"))
+    inputs = sorted(glob.glob(f"*.{ext}"), key=lambda x: x.lower())
 
     concat_videos(f"{name}.{ext}", inputs, args.use_container)
