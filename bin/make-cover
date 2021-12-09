@@ -1,0 +1,161 @@
+#!/usr/bin/env python3
+"""Script to add a cover to a video."""
+
+from collections import namedtuple
+import glob
+import os
+import subprocess
+import tempfile
+from textwrap import wrap
+
+FFMPEG_CMD = ["ffmpeg", "-y"]
+QnA = namedtuple("QnA", ["q", "a"], defaults=(None,))
+
+
+def video_dimensions(video):
+    cmd = (
+        ["ffprobe", "-v", "error"]
+        + ["-select_streams", "v:0", "-show_entries", "stream=width,height"]
+        + ["-of", "csv=p=0", video]
+    )
+    output = subprocess.check_output(cmd)
+    width, height = [int(x) for x in output.decode("utf8").strip().split(",")]
+    return width, height
+
+
+def create_black_background(input_file, time=10):
+    w, h = map(int, video_dimensions(input_file))
+    name, _ = os.path.splitext(input_file)
+    background_file = f"black-{name}-{w}x{h}.jpg"
+    if os.path.isfile(background_file):
+        return background_file
+    command = (
+        FFMPEG_CMD
+        + ["-i", input_file]
+        + ["-vf", f"geq=0:128:128", "-frames:v", "1"]
+        + [background_file]
+    )
+    subprocess.check_call(command)
+    return background_file
+
+
+def compute_drawtext_param(
+    text,
+    width=32,
+    fontsize=18,
+    fontcolor="FF7F00",
+    fontfile="Ubuntu-R.ttf",
+    h_offset=0,
+    disable_wrap=False,
+):
+    # Special character escapes are like violence: if they're not solving your
+    # problem, you're not using enough. https://stackoverflow.com/a/10729560
+    text = text.replace("'", "\u2019")
+    text = text.replace(",", r"\,").replace(":", r"\:")
+    if not disable_wrap:
+        lines = [
+            wrapped_line for each in text.splitlines() for wrapped_line in wrap(each, width=width)
+        ]
+    else:
+        lines = text.splitlines()
+    fontconfig = f"fontfile={fontfile}:fontcolor={fontcolor}:fontsize={fontsize}"
+
+    def format_line(text, idx):
+        d = (idx + h_offset) * 2.5
+        # Text height depends on the height of the actual text - a sentence with
+        # ... alone would have a very small height, compared to a "normal"
+        # sentence. Use font-size instead.
+        th = fontsize
+        x = "(w-tw)/2"
+        y = f"(h+({th} * {d}))/2"
+        return f"drawtext={fontconfig}:text=\\'{text}\\':x='{x}':y='{y}'"
+
+    return ",".join(format_line(line, i) for i, line in enumerate(lines))
+
+
+def draw_text(input_file, output_file, text, font_height):
+    drawtext_param = compute_drawtext_param(text.q, fontsize=font_height)
+    if text.a:
+        h_offset = drawtext_param.count("drawtext") + 1
+        ans_font_height = round(font_height * 0.8)
+        ans = compute_drawtext_param(
+            text.a,
+            fontsize=ans_font_height,
+            fontcolor="FFFFFF",
+            h_offset=h_offset,
+        )
+        drawtext_param += f",{ans}"
+    command = (
+        FFMPEG_CMD
+        + ["-i", input_file]
+        + ["-vf", f"{drawtext_param}"]
+        + ["-frames:v", "1"]
+        # + ["-af", f"atrim=0:{time}"]
+        + [output_file]  # "-to", str(time),
+    )
+    subprocess.check_call(command)
+
+
+def resize_logo(logo, size):
+    name = os.path.basename(logo)
+    new_path = os.path.join(os.path.dirname(logo), f"{size}x{size}_{name}")
+    if os.path.exists(new_path):
+        return new_path
+
+    with open(logo, "rb") as f:
+        img = Image.open(io.BytesIO(f.read()))
+    img = ImageOps.fit(img, (size, size), Image.ANTIALIAS)
+    with open(new_path, "wb") as out:
+        img.save(out, format="png")
+    return new_path
+
+
+def draw_logo(
+    input_file,
+    output_file,
+    logo_file,
+    size=48,
+    location="(main_w-overlay_w):10",
+):
+    logo_file = resize_logo(logo_file, size)
+    command = (
+        FFMPEG_CMD
+        + ["-i", input_file, "-i", logo_file]
+        + ["-filter_complex", f"overlay={location}"]
+        + [output_file]
+    )
+    subprocess.check_call(command)
+
+
+def prepare_cover_image(input_file, q_a, logo_file=None):
+    w, h = map(int, video_dimensions(input_file))
+    ext = ".jpg"
+    background_file = create_black_background(input_file)
+    font_height = int(h / 16)
+    logo_size = int(h / 7.5)
+    text_file = f"intro-{input_file}-{w}x{h}{ext}"
+    draw_text(background_file, text_file, q_a, font_height)
+    os.remove(background_file)
+    output_file = text_file
+    if logo_file:
+        text_logo_file = f"intro-logo-{input_file}-{w}x{h}{ext}"
+        draw_logo(text_file, text_logo_file, logo_file, logo_size)
+        os.remove(text_file)
+        output_file = text_logo_file
+    print(f"Created cover file: {output_file}")
+    return output_file
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument("video")
+    parser.add_argument("--logo-file", default=None)
+    parser.add_argument("--title", default="title")
+    parser.add_argument("--sub-title", default="sub-title")
+
+    args = parser.parse_args()
+    q_a = QnA(q=args.title, a=args.sub_title)
+    logo_file = os.path.abspath(os.path.expanduser(args.logo_file))
+    prepare_cover_image(args.video, q_a, logo_file)
