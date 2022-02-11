@@ -10,9 +10,16 @@ There's a `.git` file in $HOME that points to this repository.
 gitdir: /path/to/this/gitdir/.git
 ```
 
-I think a bare clone would do the trick, when cloning this repository. But, I
-haven't had the need to do it, yet. I should be able to figure that out, when
-required. Hopefully, I won't need to setup this repository too many times. :)
+To clone this repository in a new machine, it needs a sequence of steps.
+
+- Clone the repository using `--bare` flag
+- Add the `.git` file as described above
+- `git checkout` and `git reset` from $HOME
+
+See this [ansible
+script](https://github.com/punchagan/ansible-system-setup/commit/adb14c5) for
+the actual commands to run.
+
 
 ### Using `core.worktree` config
 
