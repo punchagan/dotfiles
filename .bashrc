@@ -140,13 +140,6 @@ export PATH="$HOME/.gem/ruby/2.5.0/bin:$PATH"
 
 export PATH="$HOME/software/random/doom-emacs/bin:$PATH"
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/home/punchagan/software/akvo/tmp/google-cloud-sdk/path.bash.inc' ]; then . '/home/punchagan/software/akvo/tmp/google-cloud-sdk/path.bash.inc'; fi
-
-# The next line enables shell command completion for gcloud.
-if [ -f '/home/punchagan/software/akvo/tmp/google-cloud-sdk/completion.bash.inc' ]; then . '/home/punchagan/software/akvo/tmp/google-cloud-sdk/completion.bash.inc'; fi
-
-
 # NPM related stuff
 NPM_PACKAGES="${HOME}/.npm-packages"
 
