@@ -41,7 +41,7 @@ gsettings set org.gnome.desktop.interface gtk-theme ${!GTK_THEME}
 # slack-switch-day-night "${MODE}"
 
 # Zulip
-zulip-switch-day-night ~/.zulip.d/ "${MODE}"
+zulip-switch-day-night ~/.zulip.d/ "${MODE}" || echo "Could not change Zulip scheme"
 
 # Terminal
 # NOTE: The terminal is configured to match the OS theme colors, and this is
