@@ -80,5 +80,8 @@ export SCM_CHECK=true
 # Uncomment this to make Bash-it create alias reload.
 # export BASH_IT_RELOAD_LEGACY=1
 
+# Use a custom directory for customizations
+export BASH_IT_CUSTOM="$HOME/.config/bash-it"
+
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
