@@ -17,4 +17,5 @@ plugins thefuck
 plugins tmux
 completion bash-it
 completion system
+aliases emacs
 aliases general
