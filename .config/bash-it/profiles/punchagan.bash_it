@@ -6,6 +6,15 @@ plugins base
 plugins direnv
 plugins fasd
 plugins fzf
+plugins git
+plugins gitstatus
+plugins history-eternal
+plugins history
+plugins history-search
+plugins history-substring-search
+plugins hub
+plugins thefuck
+plugins tmux
 completion bash-it
 completion system
 aliases general
