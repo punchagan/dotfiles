@@ -50,3 +50,9 @@ zulip-switch-day-night ~/.zulip.d/ "${MODE}" || echo "Could not change Zulip sch
 # Firefox/Browser
 # NOTE: I use the Dark Reader extension (darkreader.org) and configure it to
 # switch based on the OS theme, again.  This works pretty well!
+
+# VSCode
+# NOTE: We could send commands using xdotool to switch the theme, but VS code
+# supports configuration to change theme based on OS light/dark theme.
+# Look for "Auto Detect Color Scheme" in Settings (Ctrl+,)
+# xdotool search --name "Visual Studio Code" windowactivate %1 && sleep 0.5s && xdotool key --clearmodifiers ctrl+k ctrl+t l i g h t space v s Return
