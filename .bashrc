@@ -83,5 +83,8 @@ export SCM_CHECK=true
 # Use a custom directory for customizations
 export BASH_IT_CUSTOM="$HOME/.config/bash-it"
 
+# Set ALTERNATE_EDITOR required by some aliases (can't be set in custom bash files)
+export ALTERNATE_EDITOR=vim
+
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
