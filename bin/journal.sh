@@ -1,2 +1,3 @@
 #!/bin/bash
-emacsclient -ne "(pc/journal)"
+MODE="${1:-default}"
+emacsclient -ne "(pc/journal '${MODE})"
