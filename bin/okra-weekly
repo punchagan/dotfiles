@@ -2,7 +2,9 @@
 
 DAY="${1:-last Friday}"
 opam switch okra
-eval $(opam env)
+eval "$(opam env)"
 WEEK=$(date -d "${DAY}" '+%U')
 YEAR=$(date -d "${DAY}" '+%G')
-okra generate --week="${WEEK}" > ~/code/segfault/admin/weekly/"${YEAR}"/"${WEEK}"/"$(whoami).md"
+DIR="${HOME}/code/segfault/admin/weekly/${YEAR}/${WEEK}"
+mkdir -p "${DIR}"
+okra generate --week="${WEEK}" > "${DIR}/$(whoami).md"
