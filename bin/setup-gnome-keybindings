@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# The keybindings somehow donot persist between restarts.  This script makes it
+# easy to set them up again, whenever they keybindings go missing.
+
+fasd_cd -d ansible-system-setup
+./local --tags extensions,settings,dconf,fonts,files,gnome
+killall -HUP gnome-shell
