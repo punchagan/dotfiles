@@ -1,8 +1,9 @@
 #!/bin/bash
 
+set -euo pipefail
 # The keybindings somehow donot persist between restarts.  This script makes it
 # easy to set them up again, whenever they keybindings go missing.
 
-fasd_cd -d ansible-system-setup
+cd "$(fasd -d ansible -e 'printf %s')"
 ./local --tags extensions,settings,dconf,fonts,files,gnome
 killall -HUP gnome-shell
