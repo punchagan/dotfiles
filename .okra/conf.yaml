@@ -1,7 +1,8 @@
 ---
 projects:
   - "Continuous benchmarking infrastructure (Irm41)"
-  - "Build prototype to benchmark compilation speed (Comp93)"
+  - "OCaml/OCaml benchmarks for Inria (Comp103)"
+  - "Sandmark Maintenance (Comp85)"
 
 footer: |
   # Next week
