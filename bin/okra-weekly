@@ -9,15 +9,23 @@ WEEKLY="${DIR}/$(whoami).md"
 
 generate () {
     echo "Generating weekly for week ${WEEK} (in ${YEAR})..."
-    opam switch okra
+    switch=$(opam switch show)
+    opam switch okra > /dev/null
     eval "$(opam env)"
     mkdir -p "${DIR}"
     okra generate --week="${WEEK}" > "${WEEKLY}"
     echo "Generated ${WEEKLY}"
+    opam switch "${switch}" > /dev/null
+    eval "$(opam env)"
 }
 
 lint () {
+    switch=$(opam switch show)
+    opam switch okra > /dev/null
+    eval "$(opam env)"
     okra lint --engineer "${WEEKLY}"
+    opam switch "${switch}" > /dev/null
+    eval "$(opam env)"
 }
 
 
