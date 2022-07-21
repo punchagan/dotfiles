@@ -16,9 +16,11 @@ if [ "${_THEME}" == ${night_GTK_THEME} ]; then
     # Currently in dark mode
     CURRENT_MODE="night"
     MODE_GUESS="day"
+    SCHEME="prefer-light"
 else
     CURRENT_MODE="day"
     MODE_GUESS="night"
+    SCHEME="prefer-dark"
 fi
 
 MODE="${1:-${MODE_GUESS}}"
@@ -36,6 +38,7 @@ emacsclient -n -e "(pc/load-theme '${!EMACS_THEME})" || true
 
 # Gnome shell
 gsettings set org.gnome.desktop.interface gtk-theme ${!GTK_THEME}
+gsettings set org.gnome.desktop.interface color-scheme ${SCHEME}
 
 # Slack
 # slack-switch-day-night "${MODE}"
