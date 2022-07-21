@@ -1,6 +1,6 @@
 PHONE_IP=192.168.0.195
 
-alias phone="adb connect \$PHONE_IP:5555; scrcpy"
+alias phone="adb connect \$PHONE_IP:5555; scrcpy -S"
 
 yt-video-to-phone () {
     DIR=$(mktemp -d)
