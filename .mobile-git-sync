@@ -28,4 +28,4 @@ GIT_REMOTE="origin"
 # Examples:
 # MOBILE_URL="ftp://mymobile.example.com:3000/files"
 # MOBILE_URL="scp://192.168.0.12/files
-MOBILE_URL="scp://192.168.0.195:2222/sdcard/sshd/life-in-plain-text"
+MOBILE_URL="scp://192.168.0.103:2222/sdcard/sshd/life-in-plain-text"
