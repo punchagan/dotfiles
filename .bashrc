@@ -88,3 +88,6 @@ export ALTERNATE_EDITOR=vim
 
 # Load Bash It
 source "$BASH_IT"/bash_it.sh
+
+# opam configuration
+test -r /home/punchagan/.opam/opam-init/init.sh && . /home/punchagan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
