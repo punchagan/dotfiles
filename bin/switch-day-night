@@ -46,6 +46,9 @@ gsettings set org.gnome.desktop.interface color-scheme ${SCHEME}
 # Zulip
 zulip-switch-day-night ~/.zulip.d/ "${MODE}" || echo "Could not change Zulip scheme"
 
+# Evince
+xdotool search --onlyvisible --class evince windowfocus key ctrl+i
+
 # Terminal
 # NOTE: The terminal is configured to match the OS theme colors, and this is
 # sufficient for my purposes.
