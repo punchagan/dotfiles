@@ -91,3 +91,8 @@ source "$BASH_IT"/bash_it.sh
 
 # opam configuration
 test -r /home/punchagan/.opam/opam-init/init.sh && . /home/punchagan/.opam/opam-init/init.sh > /dev/null 2> /dev/null || true
+
+# more additions to $PATH
+export PATH="${HOME}/bin/external:${PATH}"
+export FLYCTL_INSTALL="/home/punchagan/.fly"
+export PATH="$FLYCTL_INSTALL/bin:$PATH"
