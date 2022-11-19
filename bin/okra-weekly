@@ -4,8 +4,16 @@ ACTION="${1:-generate}"
 DAY="${2:-last Friday}"
 WEEK=$(date -d "${DAY}" '+%U')
 YEAR=$(date -d "${DAY}" '+%G')
-DIR="${HOME}/code/segfault/admin/weekly/${YEAR}/${WEEK}"
+ROOT="${HOME}/code/segfault/admin"
+DIR="${ROOT}/weekly/${YEAR}/${WEEK}"
 WEEKLY="${DIR}/$(whoami).md"
+
+commit () {
+    pushd "${ROOT}" || exit
+    git add "${WEEKLY}"
+    git commit -m "Add @punchagan ${YEAR}-${WEEK} weekly"
+    popd || exit
+}
 
 generate () {
     echo "Generating weekly for week ${WEEK} (in ${YEAR})..."
@@ -35,6 +43,9 @@ then
 elif [[ $ACTION == "lint" ]];
 then
     lint
+elif [[ $ACTION == "commit" ]];
+then
+    commit
 else
     echo "Unknown action: ${ACTION}"
 fi
