@@ -1,9 +1,8 @@
 ---
 projects:
   - "Sandmark Maintenance (Comp85)"
-  - "Continuous benchmarking infrastructure (Irm41)"
   - "OCaml/OCaml benchmarks for Inria (Comp103)"
-  - "Add Irmin replay benchmarks for Tezos in Sandmark (Comp67)"
+  - "OCurrent maintenance and adoption (Plat105)"
 
 footer: |
   # Next week
