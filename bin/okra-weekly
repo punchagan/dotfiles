@@ -47,5 +47,5 @@ elif [[ $ACTION == "commit" ]];
 then
     commit
 else
-    echo "Unknown action: ${ACTION}"
+    ${ACTION} "${WEEKLY}"
 fi
