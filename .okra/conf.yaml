@@ -3,6 +3,7 @@ projects:
   - "Sandmark Maintenance (Comp85)"
   - "OCaml/OCaml benchmarks for Inria (Comp103)"
   - "OCurrent maintenance and adoption (Plat105)"
+  - "Publish Irmin/Tezos performance benchmarks (Irm11)"
 
 footer: |
   # Next week
