@@ -96,3 +96,4 @@ test -r /home/punchagan/.opam/opam-init/init.sh && . /home/punchagan/.opam/opam-
 export PATH="${HOME}/bin/external:${PATH}"
 export FLYCTL_INSTALL="/home/punchagan/.fly"
 export PATH="$FLYCTL_INSTALL/bin:$PATH"
+export PATH="~/.npm-global/bin:$PATH"
