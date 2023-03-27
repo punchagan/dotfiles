@@ -4,6 +4,7 @@ projects:
   - "OCaml/OCaml benchmarks for Inria (Comp103)"
   - "OCurrent maintenance and adoption (Plat105)"
   - "Publish Irmin/Tezos performance benchmarks (Irm11)"
+  - "Helping projects integrate with current-bench (Plat202)"
 
 footer: |
   # Next week
