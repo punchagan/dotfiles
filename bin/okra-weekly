@@ -21,7 +21,7 @@ generate () {
     opam switch okra > /dev/null
     eval "$(opam env)"
     mkdir -p "${DIR}"
-    okra generate --week="${WEEK}" > "${WEEKLY}"
+    okra generate --week="${WEEK}" --year="${YEAR}" > "${WEEKLY}"
     echo "Generated ${WEEKLY}"
     opam switch "${switch}" > /dev/null
     eval "$(opam env)"
