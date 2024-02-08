@@ -2,7 +2,7 @@
 
 ACTION="${1:-generate}"
 DAY="${2:-last Friday}"
-WEEK=$(date -d "${DAY}" '+%U')
+WEEK=$(date -d "${DAY}" '+%V')
 YEAR=$(date -d "${DAY}" '+%G')
 ROOT="${HOME}/code/segfault/admin"
 DIR="${ROOT}/weekly/${YEAR}/${WEEK}"
