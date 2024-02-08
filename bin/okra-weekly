@@ -7,6 +7,7 @@ YEAR=$(date -d "${DAY}" '+%G')
 ROOT="${HOME}/code/segfault/admin"
 DIR="${ROOT}/weekly/${YEAR}/${WEEK}"
 WEEKLY="${DIR}/$(whoami).md"
+PREFIX="opam exec --switch=okra --"
 
 commit () {
     pushd "${ROOT}" || exit
@@ -17,23 +18,14 @@ commit () {
 
 generate () {
     echo "Generating weekly for week ${WEEK} (in ${YEAR})..."
-    switch=$(opam switch show)
-    opam switch okra > /dev/null
-    eval "$(opam env)"
     mkdir -p "${DIR}"
-    okra generate --week="${WEEK}" --year="${YEAR}" > "${WEEKLY}"
+    $PREFIX okra generate --week="${WEEK}" --year="${YEAR}" > "${WEEKLY}"
     echo "Generated ${WEEKLY}"
-    opam switch "${switch}" > /dev/null
-    eval "$(opam env)"
 }
 
 lint () {
-    switch=$(opam switch show)
-    opam switch okra > /dev/null
-    eval "$(opam env)"
-    okra lint --engineer "${WEEKLY}"
-    opam switch "${switch}" > /dev/null
-    eval "$(opam env)"
+    echo "Linting weekly for week ${WEEK} (in ${YEAR})..."
+    $PREFIX okra lint --engineer "${WEEKLY}"
 }
 
 
