@@ -24,8 +24,11 @@ generate () {
 }
 
 lint () {
-    echo "Linting weekly for week ${WEEK} (in ${YEAR})..."
     $PREFIX okra lint --engineer "${WEEKLY}"
+}
+
+stats () {
+    $PREFIX okra stats --engineer "${WEEKLY}"
 }
 
 
@@ -35,6 +38,9 @@ then
 elif [[ $ACTION == "lint" ]];
 then
     lint
+elif [[ $ACTION == "stats" ]];
+then
+    stats
 elif [[ $ACTION == "commit" ]];
 then
     commit
