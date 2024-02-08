@@ -23,24 +23,17 @@ generate () {
     echo "Generated ${WEEKLY}"
 }
 
-lint () {
+check () {
     $PREFIX okra lint --engineer "${WEEKLY}"
-}
-
-stats () {
     $PREFIX okra stats --engineer "${WEEKLY}"
 }
-
 
 if [[ $ACTION == "generate" ]];
 then
     generate
-elif [[ $ACTION == "lint" ]];
+elif [[ $ACTION == "check" ]];
 then
-    lint
-elif [[ $ACTION == "stats" ]];
-then
-    stats
+    check
 elif [[ $ACTION == "commit" ]];
 then
     commit
