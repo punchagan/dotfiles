@@ -28,6 +28,11 @@ check () {
     $PREFIX okra stats --engineer "${WEEKLY}"
 }
 
+lint-commit () {
+    FILES=$(git -C "${ROOT}" diff --name-only HEAD HEAD~1)
+    ${PREFIX} okra lint --engineer --okr-db="${ROOT}/data/db.csv" ${FILES}
+}
+
 if [[ $ACTION == "generate" ]];
 then
     generate
@@ -37,6 +42,9 @@ then
 elif [[ $ACTION == "commit" ]];
 then
     commit
+elif [[ $ACTION == "lint-commit" ]];
+then
+    lint-commit
 else
     ${ACTION} "${WEEKLY}"
 fi
