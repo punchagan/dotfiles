@@ -1,10 +1,10 @@
 ---
 projects:
   - title: "Sandmark Maintenance (Comp85)"
-  - title: "OCaml/OCaml benchmarks for Inria (Comp103)"
   - title: "OCurrent maintenance and adoption (Plat105)"
-  - title: "Publish Irmin/Tezos performance benchmarks (Irm11)"
-  - title: "Helping projects integrate with current-bench (Plat202)"
+  - title: "General OCaml infrastructure maintenance (Plat174)"
+  - title: "Commercial Dune support for Jane Street (Plat219)"
+  - title: "Prototype benchmark visualisation tool (#1094)"
 
 footer: |
   # Next week
