@@ -29,8 +29,10 @@ check () {
 }
 
 lint-commit () {
+    pushd "${ROOT}"
     FILES=$(git -C "${ROOT}" diff --name-only HEAD HEAD~1)
     ${PREFIX} okra lint --engineer --okr-db="${ROOT}/data/db.csv" ${FILES}
+    popd
 }
 
 if [[ $ACTION == "generate" ]];
