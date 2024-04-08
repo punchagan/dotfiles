@@ -28,10 +28,15 @@ check () {
     $PREFIX okra stats --engineer "${WEEKLY}"
 }
 
-lint-commit () {
+check-commit () {
     pushd "${ROOT}"
     FILES=$(git -C "${ROOT}" diff --name-only HEAD HEAD~1)
     ${PREFIX} okra lint --engineer --okr-db="${ROOT}/data/db.csv" ${FILES}
+    for each in ${FILES};
+    do
+        echo "Stats for ${each}..."
+        $PREFIX okra stats --engineer "${each}"
+    done
     popd
 }
 
