@@ -1,6 +1,5 @@
 ---
 projects:
-  - title: "Sandmark Maintenance (Comp85)"
   - title: "OCurrent maintenance and adoption (Plat105)"
   - title: "General OCaml infrastructure maintenance (Plat174)"
   - title: "Commercial Dune support for Jane Street (Plat219)"
