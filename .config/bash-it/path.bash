@@ -19,3 +19,7 @@ export FLYCTL_INSTALL="/home/punchagan/.fly"
 if [ -d "${FLYCTL_INSTALL}" ] ; then
     export PATH="${FLYCTL_INSTALL}/bin:$PATH"
 fi
+
+if [ -d "$HOME/.config/doomemacs/bin" ] ; then
+    PATH="$HOME/.config/doomemacs/bin:$PATH"
+fi
