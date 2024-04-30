@@ -59,7 +59,12 @@ def change_topic(client, start, end, new_topic):
         if start <= message["id"] <= end
     ]
     for msg in messages:
-        request = {"message_id": msg["id"], "topic": new_topic}
+        request = {
+            "message_id": msg["id"],
+            "topic": new_topic,
+            "send_notification_to_old_thread": False,
+            "send_notification_to_new_thread": False,
+        }
         result = client.update_message(request)
 
 
