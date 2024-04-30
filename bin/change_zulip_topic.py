@@ -38,9 +38,7 @@ def change_topic(client, start, end, new_topic):
     stream_id = message["stream_id"]
     topic = response["messages"][0]["subject"]
     streams = client.get_streams()["streams"]
-    stream = [
-        stream for stream in streams if stream["stream_id"] == stream_id
-    ][0]
+    stream = [stream for stream in streams if stream["stream_id"] == stream_id][0]
 
     # Get messages in the topic
     filters = {
@@ -53,11 +51,7 @@ def change_topic(client, start, end, new_topic):
         "anchor": start,
     }
     response = client.get_messages(filters)
-    messages = [
-        message
-        for message in response["messages"]
-        if start <= message["id"] <= end
-    ]
+    messages = [message for message in response["messages"] if start <= message["id"] <= end]
     for msg in messages:
         request = {
             "message_id": msg["id"],
