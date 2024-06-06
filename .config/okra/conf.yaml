@@ -1,10 +1,7 @@
 ---
 projects:
-  - title: "General OCaml infrastructure maintenance (Plat174)"
-  - title: "Commercial Dune support for Jane Street (Plat219)"
-  - title: "Prototype benchmark visualisation tool (#1094)"
-  - title: "Prototype Dune-powered OCaml repository CI (#1156)"
-  - title: "Move OCaml Infrastructure maintenance to ocaml/infrastructure (#1093)"
+  - title: "General Ocaml Infrastructure Maintenance (#578)"
+  - title: "Dune-Powered opam-repository CI (#551)"
 
 footer: |
   # Next week
