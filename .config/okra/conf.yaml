@@ -1,7 +1,7 @@
 ---
 projects:
   - title: "Maintenance - Infrastructure (2024) (#729)"
-  - title: "Dune-Powered opam-repository CI (#551)"
+  - title: "Centralise OCaml Infrastructure maintenance (#574)"
 
 footer: |
   # Next week
