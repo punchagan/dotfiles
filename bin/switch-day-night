@@ -6,9 +6,9 @@ IFS=$'\n\t'
 
 # Settings
 # shellcheck disable=SC2034
-day_EMACS_THEME=doom-nord-light
+day_EMACS_THEME=doom-oksolar-light
 # shellcheck disable=SC2034
-night_EMACS_THEME=doom-nord
+night_EMACS_THEME=doom-oksolar-dark
 # shellcheck disable=SC2034
 day_GTK_THEME="'Adwaita'"
 night_GTK_THEME="'Adwaita-dark'"
