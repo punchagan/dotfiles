@@ -15,9 +15,10 @@ COLOR_SCHEME = {"night": "2", "day": "3"}
 def set_display(config_file, mode):
     print(f"Switching to '{mode}' mode using {config_file}")
     client = zulip.Client(config_file=config_file)
-    client.call_endpoint(
+    response = client.call_endpoint(
         "settings/display", method="PATCH", request={"color_scheme": COLOR_SCHEME[mode]}
     )
+    assert response["result"] == "success", response
 
 
 def main():
