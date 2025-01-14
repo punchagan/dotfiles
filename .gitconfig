@@ -1,0 +1,44 @@
+[user]
+	name = Puneeth Chaganti
+	email = punchagan@muse-amuse.in
+[color]
+	diff = true
+[log]
+	date = local
+[help]
+	autocorrect = prompt
+[rerere]
+	enabled = 0
+[push]
+	default = nothing
+[core]
+	whitespace = trailing-space,space-before-tab
+[diff "minjs"]
+	textconv = js-beautify
+	cachetextconv = true
+[diff "mincss"]
+	textconv = js-beautify --css
+	cachetextconv = true
+[alias]
+	hub = "!f() { git clone git@github.com:$1; }; f"
+	lab = "!f() { git clone git@gitlab.com:$1; }; f"
+[merge]
+	conflictstyle = diff3
+[cola]
+	spellcheck = false
+[gc]
+	reflogExpire = never
+	reflogExpireUnreachable = never
+[magithub]
+	online = false
+[magithub "status"]
+	includeStatusHeader = false
+	includePullRequestsSection = false
+	includeIssuesSection = false
+[init]
+	defaultBranch = main
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
