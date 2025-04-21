@@ -47,7 +47,7 @@ gsettings set org.gnome.desktop.interface color-scheme ${SCHEME}
 # slack-switch-day-night "${MODE}"
 
 # Zulip
-zulip-switch-day-night ~/.config/zuliprc.d/ "${MODE}" || echo "Could not change Zulip scheme"
+# zulip-switch-day-night ~/.config/zuliprc.d/ "${MODE}" || echo "Could not change Zulip scheme"
 
 # Evince
 xdotool search --onlyvisible --class evince windowfocus key ctrl+i || echo "No evince windows"
