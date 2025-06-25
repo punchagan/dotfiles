@@ -1,7 +1,9 @@
 ---
 projects:
   - title: "Maintenance - Infrastructure (2024) (#729)"
+  - title: "Maintenance - Infrastructure (2025) (#869)"
   - title: "Centralise OCaml Infrastructure maintenance (#574)"
+  - title: "Extending Semgrep’s Native Windows Support (#924)"
 
 footer: |
   # Next week
