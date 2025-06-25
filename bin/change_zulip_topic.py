@@ -29,7 +29,7 @@ import zulip
 # print(result)
 
 
-def change_topic(client, start, end, new_topic):
+def change_topic(client, start, end, new_topic, new_stream_id=None):
     # Get first message and figure out stream and topic
     filters = {"id": start, "num_before": 0, "num_after": 0, "anchor": start}
     response = client.get_messages(filters)
@@ -51,7 +51,9 @@ def change_topic(client, start, end, new_topic):
         "anchor": start,
     }
     response = client.get_messages(filters)
-    messages = [message for message in response["messages"] if start <= message["id"] <= end]
+    messages = [
+        message for message in response["messages"] if start <= message["id"] <= end
+    ]
     for msg in messages:
         request = {
             "message_id": msg["id"],
@@ -59,6 +61,8 @@ def change_topic(client, start, end, new_topic):
             "send_notification_to_old_thread": False,
             "send_notification_to_new_thread": False,
         }
+        if new_stream_id is not None:
+            request["stream_id"] = new_stream_id
         result = client.update_message(request)
 
 
@@ -68,6 +72,7 @@ def main():
     parser.add_argument("--start", "-a", type=int, required=True)
     parser.add_argument("--end", "-z", type=int, required=True)
     parser.add_argument("--new-topic", "-t", type=str, required=True)
+    parser.add_argument("--new-stream-id", "-s", type=int, required=False, default=None)
 
     options = parser.parse_args()
     config_path = options.config_path.name
@@ -76,7 +81,7 @@ def main():
     end = options.end
     client = zulip.Client(config_file=config_path)
     assert start < end
-    change_topic(client, start, end, new_topic)
+    change_topic(client, start, end, new_topic, options.new_stream_id)
 
 
 if __name__ == "__main__":
