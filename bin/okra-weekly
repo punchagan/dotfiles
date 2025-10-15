@@ -1,9 +1,17 @@
 #!/bin/bash
 
 ACTION="${1:-generate}"
-DAY="${2:-last Friday}"
-WEEK=$(date -d "${DAY}" '+%V')
-YEAR=$(date -d "${DAY}" '+%G')
+
+# Allow entering week as argument, e.g., "W15"; defaults to last Friday.
+
+if [[ "${2}" =~ ^[wW][0-9]{2}$ ]]; then
+    WEEK="${2:1:2}"
+    YEAR=$(date '+%G')
+else
+    DAY="${2:-last Friday}"
+    WEEK=$(date -d "${DAY}" '+%V')
+    YEAR=$(date -d "${DAY}" '+%G')
+fi
 ROOT="${HOME}/code/segfault/admin"
 DIR="${ROOT}/weekly/${YEAR}/${WEEK}"
 WEEKLY="${DIR}/$(whoami).md"
