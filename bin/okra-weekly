@@ -9,20 +9,6 @@ DIR="${ROOT}/weekly/${YEAR}/${WEEK}"
 WEEKLY="${DIR}/$(whoami).md"
 PREFIX="opam exec --switch=okra --"
 
-commit () {
-    pushd "${ROOT}" || exit
-    git add "${WEEKLY}"
-    git commit -m "Add @punchagan ${YEAR}-${WEEK} weekly"
-    popd || exit
-}
-
-generate () {
-    echo "Generating weekly for week ${WEEK} (in ${YEAR})..."
-    mkdir -p "${DIR}"
-    $PREFIX okra generate --week="${WEEK}" --year="${YEAR}" > "${WEEKLY}"
-    echo "Generated ${WEEKLY}"
-}
-
 check () {
     $PREFIX okra lint --engineer --work-item-db="${ROOT}/data/db.csv" --objective-db="${ROOT}/data/team-objectives.csv" "${WEEKLY}"
     $PREFIX okra stats --engineer "${WEEKLY}"
@@ -38,6 +24,20 @@ check-commit () {
         $PREFIX okra stats --engineer "${each}"
     done
     popd
+}
+
+commit () {
+    pushd "${ROOT}" || exit
+    git add "${WEEKLY}"
+    git commit -m "Add @punchagan ${YEAR}-${WEEK} weekly"
+    popd || exit
+}
+
+generate () {
+    echo "Generating weekly for week ${WEEK} (in ${YEAR})..."
+    mkdir -p "${DIR}"
+    $PREFIX okra generate --week="${WEEK}" --year="${YEAR}" > "${WEEKLY}"
+    echo "Generated ${WEEKLY}"
 }
 
 if [[ $ACTION == "generate" ]];
