@@ -40,18 +40,4 @@ generate () {
     echo "Generated ${WEEKLY}"
 }
 
-if [[ $ACTION == "generate" ]];
-then
-    generate
-elif [[ $ACTION == "check" ]];
-then
-    check
-elif [[ $ACTION == "commit" ]];
-then
-    commit
-elif [[ $ACTION == "lint-commit" ]];
-then
-    lint-commit
-else
-    ${ACTION} "${WEEKLY}"
-fi
+${ACTION} "${WEEKLY}"
