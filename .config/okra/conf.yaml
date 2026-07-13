@@ -1,9 +1,7 @@
 ---
 projects:
-  - title: "Maintenance - Infrastructure (2025) (#869)"
-  - title: "Maintenance - opam-repository (2025) (#863)"
   - title: "Establish `dune pkg` as the best and default tool for managing OxCaml projects (#953)"
-  - title: "Auto locking package dependencies in watch mode (#899)"
+  - title: "Enable Workspace-to-Lock-and-Back Dependency Resolution (In-and-out) (#971)"
 
 footer: |
   # Next week
