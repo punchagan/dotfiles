@@ -18,18 +18,18 @@ WEEKLY="${DIR}/$(whoami).md"
 PREFIX="opam exec --switch=okra --"
 
 check () {
-    $PREFIX okra lint --engineer --work-item-db="${ROOT}/data/team-objectives.csv" --objective-db="${ROOT}/data/team-objectives.csv" "${WEEKLY}"
-    $PREFIX okra stats --engineer "${WEEKLY}"
+    $PREFIX okra lint --work-days=5 --db="${ROOT}/data/team-objectives.csv" "${WEEKLY}"
+    $PREFIX okra stats --work-days=5 "${WEEKLY}"
 }
 
 check-commit () {
     pushd "${ROOT}"
     FILES=$(git -C "${ROOT}" diff --name-only HEAD HEAD~1)
-    ${PREFIX} okra lint --engineer --work-item-db="${ROOT}/data/team-objectives.csv" --objective-db="${ROOT}/data/team-objectives.csv" ${FILES}
+    ${PREFIX} okra lint --work-days=5 --db="${ROOT}/data/team-objectives.csv" ${FILES}
     for each in ${FILES};
     do
         echo "Stats for ${each}..."
-        $PREFIX okra stats --engineer "${each}"
+        $PREFIX okra stats "${each}"
     done
     popd
 }
