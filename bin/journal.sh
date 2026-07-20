@@ -1,3 +1,2 @@
 #!/bin/bash
-MODE="${1:-default}"
-emacsclient -ne "(pc/journal '${MODE})"
+emacsclient -ne "(pc/show-agenda)"

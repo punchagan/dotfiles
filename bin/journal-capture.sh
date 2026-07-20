@@ -1,2 +1,2 @@
 #!/bin/bash
-emacsclient -ne "(pc/journal 'journal)"
+emacsclient -ne "(pc/capture-draft)"

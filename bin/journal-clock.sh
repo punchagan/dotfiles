@@ -1,2 +1,2 @@
 #!/bin/bash
-emacsclient -ne "(pc/journal 'clock)"
+emacsclient -ne "(pc/goto-clock)"
