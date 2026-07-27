@@ -6,10 +6,6 @@ IFS=$'\n\t'
 
 # Settings
 # shellcheck disable=SC2034
-day_EMACS_THEME=leuven
-# shellcheck disable=SC2034
-night_EMACS_THEME=leuven-dark
-# shellcheck disable=SC2034
 day_GTK_THEME="'Adwaita'"
 night_GTK_THEME="'Adwaita-dark'"
 
@@ -33,11 +29,10 @@ if [ ${CURRENT_MODE} == "${MODE}" ]; then
 fi
 
 echo "Switching to ${MODE} mode..."
-EMACS_THEME="${MODE}_EMACS_THEME"
 GTK_THEME="${MODE}_GTK_THEME"
 
 # Emacs
-emacsclient -n -e "(consult-theme '${!EMACS_THEME})" || true
+emacsclient -n -e "(pc/${MODE}-theme)" || true
 
 # Gnome shell
 gsettings set org.gnome.desktop.interface gtk-theme "${!GTK_THEME}"
