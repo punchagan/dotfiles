@@ -44,7 +44,7 @@ commit () {
 generate () {
     echo "Generating weekly for week ${WEEK} (in ${YEAR})..."
     mkdir -p "${DIR}"
-    $PREFIX okra generate --week="${WEEK}" --year="${YEAR}" > "${WEEKLY}"
+    $PREFIX okra generate --orgs tarides,ocaml --weeks="${WEEK}" --year="${YEAR}" > "${WEEKLY}"
     echo "Generated ${WEEKLY}"
 }
 
